@@ -1,5 +1,8 @@
-function run(print_fn, print_args=`"05.2%s", "hello"`){
-	args = print_args.split(',').map((v, i, arr)=>{
+const { printf, ft_printf } = require('./build/Release/addon.node');
+const { execSync } = require('child_process');
+
+function run(print_fn, print_args=`"05.2%s", "hello"`) {
+	args = print_args.split(',').map((v, i, arr) => {
 		v = v.trim();
 		if (v[0] == '"')
 			return ['char *', v.replace(/^"|"$/g, '')];
@@ -15,9 +18,14 @@ function run(print_fn, print_args=`"05.2%s", "hello"`){
 	});
 	return print_fn(...args);
 }
-const {printf, ft_printf} = require('./build/Release/addon.node');
+
+function rebuild(opts = {stdio = 'inherit'}) {
+	execSync(`cd ${__dirname} && npm run rebuild`, {stdio: 'inherit', ...opts});
+}
+
 module.exports = {
 	run,
 	printf,
-	ft_printf
+	ft_printf,
+	rebuild
 }
