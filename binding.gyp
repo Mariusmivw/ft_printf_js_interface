@@ -5,11 +5,11 @@
             "sources": ["addon.cpp"],
 
             "include_dirs": [
-				"<(module_root_dir)/<!@(node -p \"require('./config.js').headerDir\")",
+				"<!@(node -p \"require('./config.js').getConfig('<(module_root_dir)', 'headerDir')\")",
                 "<!@(node -p \"require('node-addon-api').include\")",
             ],
             "libraries": [
-				"-L<(module_root_dir)/<!@(node -p \"require('./config.js').libDir\")",
+				"-L<!@(node -p \"require('./config.js').getConfig('<(module_root_dir)', 'libDir')\")",
 				"-lftprintf",
 			],
 
