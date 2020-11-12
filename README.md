@@ -2,14 +2,10 @@
 
 ## Installation
 
-Clone the repository somewhere
-```bash
-git clone https://github.com/Mariusmivw/ft_printf_js_interface.git
-```
-Create a Node.js project and import the package
+Create a Node.js project and install the package
 ```bash
 npm init -y
-npm i (repo folder) # e.g.: npm i ../ft_printf_js_interface
+npm i https://github.com/Mariusmivw/ft_printf_js_interface.git
 ```
 
 ## Usage
