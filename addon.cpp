@@ -3,6 +3,7 @@
 #include <iostream>
 extern "C" {
 	#include "ft_printf.h"
+	#include "unistd.h"
 }
 using namespace std;
 
@@ -70,17 +71,66 @@ int		Fn(const Napi::CallbackInfo &args, int(*cb)(const char *, ...))
 		*(void**)bm
 	));
 }
+int fd_pipe[2];
+int _stdout = dup(1);
 
-Napi::Number FT_PRINTF(const Napi::CallbackInfo &args)
-{
-	int len = Fn(args, ft_printf);
-	return (Napi::Number::New(args.Env(), len));
+void	fd_to_buffer(int fd) {
+	_stdout = dup(fd);
+	if (pipe(fd_pipe) != 0)
+		return ;
+	dup2(fd_pipe[1], fd);
+	close(fd_pipe[1]);
 }
 
-Napi::Number PRINTF(const Napi::CallbackInfo &args)
+char	*get_fd_buffer(int fd, char *buff, size_t size) {
+	int		ret;
+
+	if (buff == NULL) {
+		char	b[0xF000];
+		ret = read(fd_pipe[0], b, sizeof(b));
+		if (ret != -1)
+			fd_pipe[ret] = 0;
+		dup2(_stdout, fd);
+		return (NULL);
+	}
+	ret = read(fd_pipe[0], buff, size);
+	if (ret != -1)
+		buff[ret] = 0;
+	dup2(_stdout, fd);
+	return (buff);
+}
+
+Napi::Array FT_PRINTF(const Napi::CallbackInfo &args)
 {
+	fd_to_buffer(1);
+	int len = Fn(args, ft_printf);
+	char buf[0xf00];
+	write(1, "", 1);
+	get_fd_buffer(1, buf, sizeof(buf));
+	dup2(_stdout, 1);
+	Napi::String output = Napi::String::From(args.Env(), (const char *)buf);
+	Napi::Number length = Napi::Number::New(args.Env(), len);
+	Napi::Array arr = Napi::Array::New(args.Env());
+	arr.Set((uint32_t)0, output);
+	arr.Set(1, length);
+	return (arr);
+}
+
+Napi::Array PRINTF(const Napi::CallbackInfo &args)
+{
+	fd_to_buffer(1);
 	int len = Fn(args, printf);
-	return (Napi::Number::New(args.Env(), len));
+	char buf[0xf00];
+	write(1, "", 1);
+	get_fd_buffer(1, buf, sizeof(buf));
+	dup2(_stdout, 1);
+	printf("test\n");
+	Napi::String output = Napi::String::From(args.Env(), (const char *)buf);
+	Napi::Number length = Napi::Number::New(args.Env(), len);
+	Napi::Array arr = Napi::Array::New(args.Env());
+	arr.Set((uint32_t)0, output);
+	arr.Set(1, length);
+	return (arr);
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
