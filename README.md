@@ -14,6 +14,9 @@ npm i (folder where you cloned the repo) # e.g.: npm i ../ft_printf_js_interface
 
 ## Usage
 
+If the default settings in config.js aren't correct make sure you change them accordingly.
+Afterward do `npm run rebuild`
+
 ```js
 const { run, ft_printf, printf, rebuild } = require('ft_printf_js_interface');
 
