@@ -1,0 +1,16 @@
+{
+  "name": "ft_printf_js_interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "install": "node-gyp rebuild"
+  },
+  "author": "Mariusmivw <mariusmivw@gmail.com>",
+  "license": "ISC",
+  "gypfile": true,
+  "dependencies": {
+    "node-addon-api": "^3.0.0"
+  }
+}
