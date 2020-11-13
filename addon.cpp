@@ -124,7 +124,6 @@ Napi::Array PRINTF(const Napi::CallbackInfo &args)
 	write(1, "", 1);
 	get_fd_buffer(1, buf, sizeof(buf));
 	dup2(_stdout, 1);
-	printf("test\n");
 	Napi::String output = Napi::String::From(args.Env(), (const char *)buf);
 	Napi::Number length = Napi::Number::New(args.Env(), len);
 	Napi::Array arr = Napi::Array::New(args.Env());
