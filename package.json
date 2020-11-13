@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "install": "npm rebuild",
+    "install": "npm run rebuild",
     "rebuild": "node-gyp rebuild"
   },
   "author": "Mariusmivw <mariusmivw@gmail.com>",
