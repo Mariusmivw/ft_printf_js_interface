@@ -20,7 +20,7 @@ function run(print_fn, print_args=`"05.2%s", "hello"`) {
 }
 
 function rebuild(conf = {}, opts = {stdio: 'pipe'}) {
-	const abolutify = (p)=>path.isAbsolute(p) ? p : path.join(module.parent.path);
+	const abolutify = (p)=>path.isAbsolute(p) ? p : path.join(module.parent.path, p);
 	
 	const cmd = `cd ${__dirname} && ${conf.headerDir ? `HDIR=${abolutify(conf.headerDir)}` : ''} ${conf.libDir ? `LDIR=${abolutify(conf.libDir)}` : ''} npm run rebuild`;
 	try {
