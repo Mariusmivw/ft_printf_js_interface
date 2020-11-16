@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 extern "C" {
+	#define new new__
 	#include "ft_printf.h"
 	#include "unistd.h"
 }

@@ -6,7 +6,7 @@
 	"scripts": {
 		"install": "echo You have to rebuild this package befor you can use it",
 		"test": "node test.js",
-		"rebuild": "node-gyp rebuild"
+		"rebuild": "node-gyp rebuild -v"
 	},
 	"author": "Mariusmivw <mariusmivw@gmail.com>",
 	"license": "ISC",
