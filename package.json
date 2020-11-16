@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"install": "",
+		"install": "echo You have to rebuild this package befor you can use it",
 		"test": "node test.js",
 		"rebuild": "node-gyp rebuild"
 	},
