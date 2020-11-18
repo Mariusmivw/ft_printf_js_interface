@@ -67,10 +67,12 @@ int		Fn(const Napi::CallbackInfo &args, int(*cb)(const char *, ...))
 		}
 	}
 
-	return (cb(
+	int val = cb(
 		args[0].As<Napi::Array>().Get((uint32_t)1).As<Napi::String>().Utf8Value().c_str(),
 		*(void**)bm
-	));
+	);
+	free(bm);
+	return (val);
 }
 int fd_pipe[2];
 int _stdout = dup(1);
