@@ -55,12 +55,12 @@ int		Fn(const Napi::CallbackInfo &args, int(*cb)(const char *, ...))
 			(*(double*)m) = value.ToNumber().DoubleValue();
 			m += sizeof(double);
 		}
-		if (value_type == "long long")
+		if (value_type == "int64")
 		{
 			(*(int64_t*)m) = value.ToNumber().Int64Value();
 			m += sizeof(int64_t);
 		}
-		if (value_type == "unsigned long long")
+		if (value_type == "uint32")
 		{
 			(*(uint32_t*)m) = value.ToNumber().Uint32Value();
 			m += sizeof(uint32_t);

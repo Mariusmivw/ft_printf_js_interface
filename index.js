@@ -13,8 +13,8 @@ function run(print_fn, print_args=`"05.2%s", "hello"`) {
 		if (v.includes('.'))
 			return ['double', parseFloat(v)];
 		if (v[0] == '-')
-			return ['long long', parseInt(v)];
-		return ['unsigned long long', parseInt(v)];
+			return ['int64', parseInt(v)];
+		return ['uint32', parseInt(v)];
 	});
 	return print_fn(...args);
 }
